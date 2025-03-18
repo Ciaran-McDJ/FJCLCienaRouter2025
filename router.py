@@ -36,7 +36,7 @@ def main():
 
         # Write Your Code Here Start
 
-        # CASE 1
+        # CASE 2
         index = signal_values[0] - 1
         print(index)
         if (index <= 3 and index >= 0):
