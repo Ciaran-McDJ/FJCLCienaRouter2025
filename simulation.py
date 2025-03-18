@@ -37,16 +37,19 @@ def write_hardware_state(file_path, state_values, control_values, signal_values)
         fcntl.flock(file, fcntl.LOCK_UN)
         file.close()
 
+# mutates control values
 def mutate_hardware(file_path, index, value):
     state_values, control_values, signal_values = read_hardware_state(file_path)
     control_values[index] = value
     write_hardware_state(file_path, state_values, control_values, signal_values)
 
+# mutates state values
 def mutate_database(file_path, index, value):
     state_values, control_values, signal_values = read_hardware_state(file_path)
     state_values[index] = value
     write_hardware_state(file_path, state_values, control_values, signal_values)
 
+# mutates signal values
 def mutate_signal(file_path, index, value):
     state_values, control_values, signal_values = read_hardware_state(file_path)
     signal_values[0] = index

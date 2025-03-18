@@ -36,6 +36,15 @@ def main():
 
         # Write Your Code Here Start
 
+        # CASE 1
+        index = signal_values[0] - 1
+        print(index)
+        if (index <= 3 and index >= 0):
+            value = signal_values[1]
+            control_values[index] = value
+        
+        mutate_hardware(file_path, index, value)
+
         # Write Your Code Here End
 
         time.sleep(1)  # Wait for 1 second before polling again
