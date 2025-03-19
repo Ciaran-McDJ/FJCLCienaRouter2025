@@ -3,7 +3,7 @@ import sys
 import time
 import select
 
-from simulation import read_hardware_state, write_hardware_state, calculate_f, mutate_hardware, mutate_database, create_hardware_file, file_path
+from simulation_win import read_hardware_state, write_hardware_state, calculate_f, mutate_hardware, mutate_database, create_hardware_file, file_path
 
 def print_cli_history(history):
     for entry in history:
@@ -43,6 +43,16 @@ def main():
         t += 1
 
         # Write Your Code Here Start
+        if (t%10 == 0):
+            print(t)
+            print(read_hardware_state(file_path))
+            state_values, control_values, signal_values = read_hardware_state(file_path)
+            state_0 = state_values[0]
+            state_1 = state_values[1]
+            state_values[1] = state_0
+            state_values[0] = state_1
+            write_hardware_state(file_path,state_values, control_values, signal_values)
+            
         process_cli_input(file_path, history, t)
 
         # CASE 2
@@ -55,7 +65,7 @@ def main():
 
         # Write Your Code Here End
 
-        time.sleep(1)  # Wait for 1 second before polling again
+        time.sleep(0.1)  # Wait for 1 second before polling again
     print(history)
 
 if __name__ == '__main__':
