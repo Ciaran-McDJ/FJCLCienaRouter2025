@@ -14,7 +14,6 @@ def process_cli_input(file_path, history, t):
      # replacing input with select to allow non-blocking CLI input
     if select.select([sys.stdin], [], [], 0)[0]:
         user_input = sys.stdin.readline().strip()
-        print(user_input)
         if user_input:
             command, *args = user_input.split()
             if command == "set":
