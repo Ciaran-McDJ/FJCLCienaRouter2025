@@ -11,19 +11,28 @@ def print_cli_history(history):
 
 def process_cli_input(file_path, history, t):
     # Process CLI input here
-    try:
-        user_input = input("Enter CLI command: ")
-        command, *args = user_input.split()
-        if command == "set":
-            index = int(args[0]) - 1
-            value = int(args[1])
-            if index < 0 or index >3 :
-                print(f"Invalid Input - Error: {index}")
+     # replacing input with select to allow non-blocking CLI input
+    if select.select([sys.stdin], [], [], 0)[0]:
+        user_input = sys.stdin.readline().strip()
+        print(user_input)
+        if user_input:
+            command, *args = user_input.split()
+            if command == "set":
+                if len(args) !=2:
+                    print("Invalid Input - Please use exactly 2 arguments")
+                else:
+                    try:
+                        index = int(args[0]) - 1
+                        value = int(args[1])
+                        if index < 0 or index >3 :
+                            print(f"Invalid Input - Index (first argument): {index + 1}, is out of bounds. Try a value between 1 and 4.")
+                        else:
+                            mutate_database(file_path, index, value)
+                            history.append(f"{t} set {index} {value}")
+                    except Exception as e:
+                        print(f"Invalid Input - Error: {str(e)}")
             else:
-                mutate_database(file_path, index, value)
-                history.append(f"{t} set {index} {value}")
-    except Exception as e:
-        print(f"Invalid Input - Error: {str(e)}")
+                print(f"Unknown command: {command}")
 
 def main():
     history = []
@@ -35,6 +44,7 @@ def main():
         t += 1
 
         # Write Your Code Here Start
+        process_cli_input(file_path, history, t)
 
         # CASE 2
         index = signal_values[0] - 1
