@@ -44,7 +44,6 @@ def main():
 
         # Write Your Code Here Start
         if (t%10 == 0):
-            print(t)
             print(read_hardware_state(file_path))
             state_values, control_values, signal_values = read_hardware_state(file_path)
             state_0 = state_values[0]
@@ -52,6 +51,7 @@ def main():
             state_values[1] = state_0
             state_values[0] = state_1
             write_hardware_state(file_path,state_values, control_values, signal_values)
+            history.append(f"{t} swap{state_values[0]} {state_values[1]}")
             
         process_cli_input(file_path, history, t)
 
