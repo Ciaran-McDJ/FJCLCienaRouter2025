@@ -48,7 +48,6 @@ def main():
 
         # CASE 2
         index = signal_values[0] - 1
-        print(index)
         if (index <= 3 and index >= 0):
             value = signal_values[1]
             control_values[index] = value
